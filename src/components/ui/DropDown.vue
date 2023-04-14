@@ -9,7 +9,7 @@ interface DropDownOption {
 
 interface DropDownProps {
   options: DropDownOption[]
-  value: unknown
+  value?: unknown
 }
 
 const props = defineProps<DropDownProps>()
@@ -19,6 +19,6 @@ const emit = defineEmits<{
 }>()
 </script>
 <template lang="pug">
-el-select(:model-value="value")
+el-select(:model-value="value" @update:modelValue="$emit('update:modelValue', $event)")
   el-option(v-for="item in options" :key="item.value" :label="item.label" :value="item.value")
 </template>

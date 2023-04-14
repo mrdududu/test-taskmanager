@@ -4,6 +4,7 @@ import { useTaskManagerStore } from '@/stores/task-manager'
 import GroupWrapper from './GroupWrapper.vue'
 import { ElButton, ElInput, ElDatePicker } from 'element-plus'
 import { CirclePlusFilled, RemoveFilled } from '@element-plus/icons-vue'
+import { isoDateToFormatDate } from '@/shared/func'
 
 const store = useTaskManagerStore()
 
@@ -11,17 +12,6 @@ const groupLabel = 'Dates'
 const newItemPlaceholder = 'New date'
 
 const newItem = ref<Date>()
-
-const isoDateToFormatDate = (isoDate: string) => {
-  const jsDate = new Date(isoDate)
-  return jsDate
-    .toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit'
-    })
-    .replace(/\//g, '.')
-}
 
 const collection = computed(() =>
   store.dates.state.map((item) => ({ id: item.id, name: isoDateToFormatDate(item.isoDateString) }))
@@ -38,7 +28,8 @@ const handleAdd = () => {
 }
 
 const handleDel = (id: number) => {
-  store.dates.delItem(id)
+  store.events.removeItemsByDateId(id)
+  // store.dates.delItem(id)
 }
 </script>
 
