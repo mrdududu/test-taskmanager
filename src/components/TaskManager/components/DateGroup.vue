@@ -14,7 +14,13 @@ const newItemPlaceholder = 'New date'
 const newItem = ref<Date>()
 
 const collection = computed(() =>
-  store.dates.state.map((item) => ({ id: item.id, name: isoDateToFormatDate(item.isoDateString) }))
+  store.dates.state
+    .map((item) => ({
+      id: item.id,
+      name: isoDateToFormatDate(item.isoDateString),
+      date: new Date(item.isoDateString)
+    }))
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
 )
 
 const handleAdd = () => {
@@ -29,7 +35,7 @@ const handleAdd = () => {
 
 const handleDel = (id: number) => {
   store.events.removeItemsByDateId(id)
-  // store.dates.delItem(id)
+  store.dates.delItem(id)
 }
 </script>
 

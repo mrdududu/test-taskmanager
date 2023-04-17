@@ -6,8 +6,14 @@ import DropDown from '@/components/ui/DropDown.vue'
 
 const store = useTaskManagerStore()
 
-const collection = computed(() =>
-  store.dates.state.map((item) => ({ id: item.id, name: isoDateToFormatDate(item.isoDateString) }))
+const dates = computed(() =>
+  store.dates.state
+    .map((item) => ({
+      id: item.id,
+      name: isoDateToFormatDate(item.isoDateString),
+      date: new Date(item.isoDateString)
+    }))
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
 )
 // store.statuses.state
 
@@ -35,10 +41,10 @@ div
     thead
       tr
         th Dates #[br] Tasks
-        th(v-for="item in collection" :key="item.id") {{ item.name }}
+        th(v-for="date in dates" :key="date.id") {{ date.name }}
     tbody
       tr(v-for="task in store.tasks.state" :key="task.id")
         td {{ task.name }}
-        td(v-for="date in store.dates.state" :key="date.id")
+        td(v-for="date in dates" :key="date.id")
           DropDown(:options="statusesOptions" clearable @clear="(event) => { handleStatusClear(task.id, date.id) }" :model-value="getStatus(task.id, date.id)" @update:modelValue="(statusId) => { handleStatusSelected(task.id, date.id, statusId) }")
 </template>
