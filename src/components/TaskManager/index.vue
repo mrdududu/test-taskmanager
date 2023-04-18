@@ -8,11 +8,9 @@ const store = useTaskManagerStore()
 // store.actions.loadState()
 </script>
 <template lang="pug">
-div
-  div Task manager 
-  .flex
-    div
-      FormConstructor
-    div
-      EventsTable
+.grid(class="grid-cols-4 gap-4 h-full")
+  div
+    FormConstructor
+  .col-span-3
+    EventsTable
 </template>

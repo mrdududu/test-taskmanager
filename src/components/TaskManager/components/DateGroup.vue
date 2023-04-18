@@ -42,12 +42,11 @@ const handleDel = (id: number) => {
 <template lang="pug">
 GroupWrapper(:label="groupLabel")
   template(#select)
-    .flex(v-for="item in collection" :key="item.id")
-      div {{ item.name }}
+    .flex(v-for="item in collection" :key="item.id" class="justify-between items-center my-1")
+      .text-sm.px-3 {{ item.name }}
       el-button(:icon="RemoveFilled" circle text @click="handleDel(item.id)")
   template(#add)
     .flex 
-      //- el-input(:placeholder="newItemPlaceholder" v-model="newItem" @keydown.enter="handleAdd")
       el-date-picker(:placeholder="newItemPlaceholder" v-model="newItem" @keydown.enter="handleAdd" type="date")
       el-button(:icon="CirclePlusFilled" circle text @click="handleAdd")
 </template>

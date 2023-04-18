@@ -48,3 +48,14 @@ div
         td(v-for="date in dates" :key="date.id")
           DropDown(:options="statusesOptions" clearable @clear="(event) => { handleStatusClear(task.id, date.id) }" :model-value="getStatus(task.id, date.id)" @update:modelValue="(statusId) => { handleStatusSelected(task.id, date.id, statusId) }")
 </template>
+
+<style scoped>
+table {
+  @apply border-collapse border border-slate-200;
+}
+
+th,
+td {
+  @apply border border-slate-200 p-2 text-sm whitespace-nowrap font-normal;
+}
+</style>
