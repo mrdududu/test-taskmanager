@@ -47,6 +47,6 @@ GroupWrapper(:label="groupLabel")
       el-button(:icon="RemoveFilled" circle text @click="handleDel(item.id)")
   template(#add)
     .flex 
-      el-date-picker(:placeholder="newItemPlaceholder" v-model="newItem" @keydown.enter="handleAdd" type="date")
+      el-date-picker(:placeholder="newItemPlaceholder" v-model="newItem" @keydown.enter="handleAdd" type="date" class="grow")
       el-button(:icon="CirclePlusFilled" circle text @click="handleAdd")
 </template>
